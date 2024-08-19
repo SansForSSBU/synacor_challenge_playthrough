@@ -1,5 +1,27 @@
 #include <iostream>
 #include "utils.cpp"
+
+void rmem(struct cpu_state state)
+{
+    uint16_t result = state.mem[interpret_number(state.args[1], state.regs)];
+    write_ptr(state.args[0], result, state);
+}
+void wmem(struct cpu_state state)
+{
+    write_ptr(interpret_number(state.args[0], state.regs), interpret_number(state.args[1], state.regs), state);
+}
+void call(struct cpu_state state)
+{
+    state.stack->push_back(*state.rip);
+    *state.rip = interpret_number(state.args[0], state.regs);
+}
+
+void mod(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) % interpret_number(state.args[2], state.regs));
+    write_ptr(state.args[0], result, state);
+}
+
 void push(struct cpu_state state)
 {
     state.stack->push_back(interpret_number(state.args[0], state.regs));
@@ -58,7 +80,13 @@ void eq(struct cpu_state state)
 
 void add(struct cpu_state state)
 {
-    uint16_t result = interpret_number(state.args[1], state.regs) + interpret_number(state.args[2], state.regs);
+    uint16_t result = (interpret_number(state.args[1], state.regs) + interpret_number(state.args[2], state.regs)) % (MAX_NUMBER+1);
+    write_ptr(state.args[0], result, state);
+}
+
+void mult(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) * interpret_number(state.args[2], state.regs)) % (MAX_NUMBER+1);
     write_ptr(state.args[0], result, state);
 }
 
@@ -93,5 +121,5 @@ void jf(struct cpu_state state)
 
 void out(struct cpu_state state)
 {
-    std::cout << (char)interpret_number(state.args[0], state.regs);
+    std::cout << *state.rip << (char)interpret_number(state.args[0], state.regs) << std::endl;
 }
