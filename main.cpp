@@ -94,6 +94,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     {
         call(state);
     }
+    if (opcode == 18)
+    {
+        ret(state);
+    }
     if (opcode == 19)
     {
         out(state);
@@ -110,14 +114,21 @@ int main() {
     std::vector<uint16_t> stack = {};
 
     // Optional debug
-    //print_instructions(vm_memory, 1, 30000);
+    //print_instructions(vm_memory, 3000, );
     
-    while (1)
+    for (int i = 0; i > -1; i++)
     {
+        //std::cout << rip << ":";
+        //print_instructions(vm_memory, rip, 1); 
         if (execute_instruction(&rip, vm_memory, regs, &stack) != 0)
         {
             break;
         }
     }
+    for (int i = 0; i < 8; i++)
+    {
+        std::cout << regs[i] << ", ";
+    }
+    std::cout << std::endl;
     return 0;
 }

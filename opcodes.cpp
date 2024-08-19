@@ -1,6 +1,18 @@
 #include <iostream>
 #include "utils.cpp"
 
+
+void ret(struct cpu_state state)
+{
+    if ((*state.stack).empty())
+    {
+        std::cout << "Empty stack!!!" << std::endl;
+    }
+    uint16_t last = state.stack->back();
+    uint16_t result = interpret_number(state.stack->back(), state.regs);
+    *state.rip = result;
+    state.stack->pop_back();
+}
 void rmem(struct cpu_state state)
 {
     uint16_t result = state.mem[interpret_number(state.args[1], state.regs)];
@@ -8,7 +20,9 @@ void rmem(struct cpu_state state)
 }
 void wmem(struct cpu_state state)
 {
-    write_ptr(interpret_number(state.args[0], state.regs), interpret_number(state.args[1], state.regs), state);
+    uint16_t dest = interpret_number(state.args[0], state.regs);
+    uint16_t data = interpret_number(state.args[1], state.regs);
+    write_ptr(dest, data, state);
 }
 void call(struct cpu_state state)
 {
@@ -105,8 +119,7 @@ void jt(struct cpu_state state)
 {
     if (interpret_number(state.args[0], state.regs) != 0)
     {
-        state.args = &state.args[1];
-        jmp(state);
+        *state.rip = interpret_number(state.args[1], state.regs);
     }
 }
 
@@ -114,12 +127,11 @@ void jf(struct cpu_state state)
 {
     if (interpret_number(state.args[0], state.regs) == 0)
     {
-        state.args = &state.args[1];
-        jmp(state);
+        *state.rip = interpret_number(state.args[1], state.regs);
     }
 }
 
 void out(struct cpu_state state)
 {
-    std::cout << *state.rip << (char)interpret_number(state.args[0], state.regs) << std::endl;
+    std::cout << (char)interpret_number(state.args[0], state.regs);
 }
