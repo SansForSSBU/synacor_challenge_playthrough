@@ -42,6 +42,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     {
         eq(state);
     }
+    if (opcode == 5)
+    {
+        gt(state);
+    }
     if (opcode == 6)
     {
         jmp(state);
@@ -57,6 +61,18 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     if (opcode == 9)
     {
         add(state);
+    }
+    if (opcode == 12)
+    {
+        op_and(state);
+    }
+    if (opcode == 13)
+    {
+        op_or(state);
+    }
+    if (opcode == 14)
+    {
+        op_not(state);
     }
     if (opcode == 19)
     {

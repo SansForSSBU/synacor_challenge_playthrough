@@ -2,13 +2,44 @@
 #include "utils.cpp"
 void push(struct cpu_state state)
 {
-    std::cout << "Attempt push" << std::endl;
     state.stack->push_back(interpret_number(state.args[0], state.regs));
+}
+
+void gt(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) > interpret_number(state.args[2], state.regs));
+    write_ptr(state.args[0], result, state);
+}
+
+void op_and(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) & interpret_number(state.args[2], state.regs));
+    write_ptr(state.args[0], result, state);
+}
+
+void op_or(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) | interpret_number(state.args[2], state.regs));
+    write_ptr(state.args[0], result, state);
+}
+
+void op_not(struct cpu_state state)
+{
+    uint16_t result = (~interpret_number(state.args[1], state.regs));
+    // Dirty way to un-flip the most significant bit.
+    if (result >= 32768)
+    {
+        result -= 32768;
+    }
+    else
+    {
+        result += 32768;
+    }
+    write_ptr(state.args[0], result, state);
 }
 
 void pop(struct cpu_state state)
 {
-    std::cout << "Attempt pop" << std::endl;
     if ((*state.stack).empty())
     {
         std::cout << "Empty stack!!!" << std::endl;
