@@ -108,7 +108,7 @@ void print_instructions(uint16_t* vm_memory, int offset, int window_size)
         }
         else
         {
-            std::cout << byte;
+            std::cout << byte << "(" << (char)byte << ")";
         }
         std::cout << endl;
     }

@@ -1,17 +1,50 @@
 #include <iostream>
 #include "utils.cpp"
 
+std::string script[] = {
+    "take tablet", 
+    "go doorway", 
+    "go north", 
+    "go north", 
+    "go bridge", 
+    "go continue", 
+    "go down",
+    "go east",
+    "take empty lantern",
+    "go west",
+    "go west",
+    "go passage",
+    "go ladder"
+};
+int script_len = end(script)-begin(script);
+int script_ptr = 0;
+
 std::string ibuf = "";
 
 int trace = 0;
+
+// TODO: This is not an opcode, put it somewhere else!
+std::string get_input()
+{
+    if (script_ptr < script_len)
+    {
+        script_ptr++;
+        return script[script_ptr-1];
+    }
+    else 
+    {
+        char input[100];
+        cin.getline(input,sizeof(input));
+        return std::string(input);
+    }
+}
 
 void in(struct cpu_state state)
 {
     if (ibuf.length() == 0)
     {
-        char input[100];
-        cin.getline(input,sizeof(input));
-        ibuf = std::string(input);
+        
+        ibuf = get_input();
         if (ibuf == "trace")
         {
             trace = 1;
@@ -20,9 +53,17 @@ void in(struct cpu_state state)
         {
             trace = 0;
         }
-        if (ibuf == "mem")
+        if (ibuf == "mem1")
         {
-            print_instructions(state.mem, 0, 30000);
+            print_instructions(state.mem, 0, 10000);
+        }
+        if (ibuf == "mem2")
+        {
+            print_instructions(state.mem, 10000, 10000);
+        }
+        if (ibuf == "mem3")
+        {
+            print_instructions(state.mem, 20000, 10000);
         }
         if (ibuf == "regs")
         {
