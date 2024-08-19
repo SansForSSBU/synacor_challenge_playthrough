@@ -1,14 +1,15 @@
 #include <iostream>
-#include <fstream>
 #include <filesystem>
+#include <fstream>
 #include <string>
+#include "constants.cpp"
+
 using namespace std;
 
-#define BINARY_PATH "challenge.bin"
-
-#define N_OPCODES 22
-string opcodes[] = {"HALT", "SET", "PUSH", "POP", "EQ", "GT", "JMP", "JT", "JF", "ADD", "MULT", "MOD", "AND", "OR", "NOT", "RMEM", "WMEM", "CALL", "RET", "OUT", "IN", "NOOP"};
-int n_args[] = {0, 2, 1, 1, 3, 3, 1, 2, 2, 3, 3, 3, 3, 3, 2, 2, 2, 1, 0, 1, 1, 0};
+int is_opcode(uint16_t byte)
+{
+    return (int)byte <= N_OPCODES;
+}
 
 string opcode_to_str(uint16_t opcode)
 {
@@ -20,11 +21,6 @@ string opcode_to_str(uint16_t opcode)
     {
         return "!DAT";
     }
-}
-
-int is_opcode(uint16_t byte)
-{
-    return (int)byte <= N_OPCODES;
 }
 
 void print_instruction(uint16_t opcode, uint16_t* args, int n_args)
@@ -82,9 +78,7 @@ void print_instructions(uint16_t* vm_memory, int offset, int window_size)
             std::cout << byte;
         }
         std::cout << endl;
-        
     }
-    
 }
 
 ifstream::pos_type get_file_size(const string path) {
@@ -97,51 +91,5 @@ int load_program(const string path, uint16_t* vm_memory) {
     ifstream fptr(path, std::ios::binary);
     
     fptr.read((char*)vm_memory, get_file_size(path));
-    return 0;
-}
-
-int execute_instruction(int *rip, uint16_t* vm_memory, int* regs)
-{
-    uint16_t opcode;
-    uint16_t args_buf[5];
-    int n_args;
-    interpret_instruction(vm_memory, *rip, &opcode, args_buf, &n_args);
-    //std::cout << *rip << " Doing ";
-    //print_instruction(opcode, args_buf, n_args);
-    //std::cout << std::endl;
-    *rip += 1+n_args;
-    if (opcode == 0 || opcode >= N_OPCODES)
-    {
-        return 1;
-    }
-    if (opcode == 19)
-    {
-        std::cout << (char)args_buf[0];
-    }
-    return 0;
-}
-
-int main() {
-    // Load the program
-    ifstream::pos_type file_size = get_file_size(BINARY_PATH);
-    uint16_t* vm_memory = (uint16_t*) calloc(file_size, 1);
-    load_program(BINARY_PATH, vm_memory);
-
-    // Set up registers and rip.
-    int rip = 0;
-    int regs[8] = {0};
-
-    int i;
-    for (i = 0; i < 1000; i++)
-    {
-        if (execute_instruction(&rip, vm_memory, regs) != 0)
-        {
-            break;
-        }
-    }
-    std::cout << i << std::endl;
-
-
-    //print_instructions(vm_memory, 0, 2000);
     return 0;
 }
