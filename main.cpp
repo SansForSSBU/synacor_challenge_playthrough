@@ -102,6 +102,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     {
         out(state);
     }
+    if (opcode == 20)
+    {
+        in(state);
+    }
     return 0;
 }
 

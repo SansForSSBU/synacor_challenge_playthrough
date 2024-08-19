@@ -1,6 +1,20 @@
 #include <iostream>
 #include "utils.cpp"
 
+std::string ibuf = "";
+
+void in(struct cpu_state state)
+{
+    if (ibuf.length() == 0)
+    {
+        std::cin >> ibuf;
+        ibuf.append("\n");
+    }
+    uint16_t result = ibuf[0];
+    write_ptr(state.args[0], result, state);
+    ibuf.erase(0,1);
+    std::cout << result << std::endl;
+}
 
 void ret(struct cpu_state state)
 {
