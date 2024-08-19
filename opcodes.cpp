@@ -54,7 +54,21 @@ std::string script[] = {
     "go up",
     "take shiny coin",
     "go down",
-    "go east"
+    "go east",
+    //Use coins in correct order
+    "use blue coin",
+    "use red coin",
+    "use shiny coin",
+    "use concave coin",
+    "use corroded coin",
+    "go north",
+    "take teleporter",
+    "use teleporter",
+    "take business card",
+    "take strange book",
+    "reghax",
+    //"trace",
+    //"use teleporter"
 };
 int script_len = end(script)-begin(script);
 int script_ptr = 0;
@@ -78,6 +92,21 @@ std::string get_input()
         return std::string(input);
     }
 }
+void memdump(cpu_state state)
+{
+    std::ofstream file("memdump", std::ios::out | std::ios::binary);
+    file.write(reinterpret_cast<const char*>(state.mem), 60000);
+    file.close();
+}
+
+void print_regs(uint16_t* regs)
+{
+    for (int i = 0; i < 8; i++)
+    {
+        std::cout << regs[i] << ", ";
+    }
+    std::cout << std::endl;
+}
 
 void in(struct cpu_state state)
 {
@@ -93,6 +122,18 @@ void in(struct cpu_state state)
         {
             trace = 0;
         }
+        if (ibuf == "reghax")
+        {
+            state.regs[7] = 15000;
+        }
+        if (ibuf == "memdump")
+        {
+            memdump(state);
+        }
+        if (ibuf == "mem32767")
+        {
+            print_instructions(state.mem, 32767, 1);
+        }
         if (ibuf == "mem1")
         {
             print_instructions(state.mem, 0, 10000);
@@ -107,11 +148,7 @@ void in(struct cpu_state state)
         }
         if (ibuf == "regs")
         {
-            for (int i = 0; i < 8; i++)
-            {
-                std::cout << state.regs[i] << ", ";
-            }
-            std::cout << std::endl;
+            print_regs(state.regs);
         }
         if (ibuf == "rip")
         {

@@ -109,6 +109,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     return 0;
 }
 
+
+std::vector<uint16_t> breakpoints = {6049};
+int step = 0;
+#include <algorithm>
 int main() {
     ifstream::pos_type file_size = get_file_size(BINARY_PATH);
     uint16_t* vm_memory = (uint16_t*) calloc(file_size, 1);
@@ -125,9 +129,51 @@ int main() {
         //std::cout << rip << ":";
         if (trace)
         {
+            print_regs(regs);
             print_instructions(vm_memory, rip, 1); 
         }
-        
+
+        if (std::find(breakpoints.begin(), breakpoints.end(), rip) != breakpoints.end() || step == 1)
+        {
+            if (!step)
+            {
+                std::cout << "Hit breakpoint " << rip << std::endl;
+            }
+            step = 0;
+            while (1)
+            {
+                print_instructions(vm_memory, rip, 1); 
+                std::string input; 
+                std::cin >> input;
+                if (input == "r")
+                {
+                    print_regs(regs);
+                }
+                if (input == "s")
+                {
+                    step = 1;
+                    break;
+                }
+                if (input == "c")
+                {
+                    break;
+                }
+                if (input == "0")
+                {
+                    regs[0] = 0;
+                }
+                if (input == "1")
+                {
+                    regs[1] = 0;
+                }
+                if (input == "2")
+                {
+                    regs[2] = 0;
+                }
+            }
+            
+        }
+
         if (execute_instruction(&rip, vm_memory, regs, &stack) != 0)
         {
             break;
