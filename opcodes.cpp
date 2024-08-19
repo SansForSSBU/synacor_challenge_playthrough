@@ -9,7 +9,9 @@ void in(struct cpu_state state)
 {
     if (ibuf.length() == 0)
     {
-        std::cin >> ibuf;
+        char input[100];
+        cin.getline(input,sizeof(input));
+        ibuf = std::string(input);
         if (ibuf == "trace")
         {
             trace = 1;
