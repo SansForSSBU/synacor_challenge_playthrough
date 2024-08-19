@@ -22,7 +22,7 @@ string opcode_to_str(uint16_t opcode)
     }
 }
 
-int is_opcode(char byte)
+int is_opcode(uint16_t byte)
 {
     return (int)byte <= N_OPCODES;
 }
@@ -42,6 +42,18 @@ void print_instruction(uint16_t opcode, uint16_t* args, int n_args)
     std::cout << ")";
 }
 
+void interpret_instruction(const uint16_t* vm_memory, const int offset, uint16_t* opcode_buf, uint16_t* args_buf, int* num_args)
+{
+    int opcode = vm_memory[offset];
+    int no_args = n_args[opcode];
+    for (int j = 0; j < no_args; j++)
+    {
+        args_buf[j] = vm_memory[offset+j+1];
+    }
+    *num_args = no_args;
+    *opcode_buf = opcode;
+}
+
 void print_instructions(uint16_t* vm_memory, int offset, int window_size)
 {
     uint16_t arg_buffer[5] = {0};
@@ -57,18 +69,13 @@ void print_instructions(uint16_t* vm_memory, int offset, int window_size)
         }
         std::cout << i << ": ";
 
-        char byte = vm_memory[offset + i];
+        uint16_t byte = vm_memory[offset + i];
         int num_args = 0;
         if (is_opcode(byte)) // Byte is an opcode
         {
-            
-            num_args = n_args[(int)byte];
-            for (int j = 0; j < num_args; j++)
-            {
-                i++;
-                arg_buffer[j] = vm_memory[offset+i];
-            }
+            interpret_instruction(vm_memory, offset+i, &byte, arg_buffer, &num_args);
             print_instruction(byte, arg_buffer, num_args);
+            i += num_args;
         }
         else
         {
@@ -93,11 +100,30 @@ int load_program(const string path, uint16_t* vm_memory) {
     return 0;
 }
 
+int execute_instruction(int* rip, uint16_t* vm_memory, int* regs)
+{
+    return 0;
+}
+
 int main() {
     // Load the program
     ifstream::pos_type file_size = get_file_size(BINARY_PATH);
     uint16_t* vm_memory = (uint16_t*) calloc(file_size, 1);
     load_program(BINARY_PATH, vm_memory);
+
+    // Set up registers and rip.
+    int rip = 0;
+    int regs[8] = {0};
+
+    int i;
+    for (i = 0; i < 10; i++)
+    {
+        if (execute_instruction(&rip, vm_memory, regs) != 0)
+        {
+            break;
+        }
+    }
+    std::cout << i << std::endl;
 
 
     print_instructions(vm_memory, 0, 2000);
