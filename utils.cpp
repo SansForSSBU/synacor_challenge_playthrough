@@ -9,6 +9,7 @@ struct cpu_state {
     uint16_t* rip;
     uint16_t* regs;
     uint16_t* mem;
+    std::vector<uint16_t>* stack;
 };
 
 using namespace std;
@@ -25,7 +26,7 @@ void write_ptr(uint16_t ptr, uint16_t val, struct cpu_state state)
     }
 }
 
-int interpret_number(uint16_t number, uint16_t* regs)
+uint16_t interpret_number(uint16_t number, uint16_t* regs)
 {
     if (number <= 32767)
     {
