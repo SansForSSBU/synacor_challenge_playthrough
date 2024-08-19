@@ -100,8 +100,24 @@ int load_program(const string path, uint16_t* vm_memory) {
     return 0;
 }
 
-int execute_instruction(int* rip, uint16_t* vm_memory, int* regs)
+int execute_instruction(int *rip, uint16_t* vm_memory, int* regs)
 {
+    uint16_t opcode;
+    uint16_t args_buf[5];
+    int n_args;
+    interpret_instruction(vm_memory, *rip, &opcode, args_buf, &n_args);
+    //std::cout << *rip << " Doing ";
+    //print_instruction(opcode, args_buf, n_args);
+    //std::cout << std::endl;
+    *rip += 1+n_args;
+    if (opcode == 0 || opcode >= N_OPCODES)
+    {
+        return 1;
+    }
+    if (opcode == 19)
+    {
+        std::cout << (char)args_buf[0];
+    }
     return 0;
 }
 
@@ -116,7 +132,7 @@ int main() {
     int regs[8] = {0};
 
     int i;
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 1000; i++)
     {
         if (execute_instruction(&rip, vm_memory, regs) != 0)
         {
@@ -126,6 +142,6 @@ int main() {
     std::cout << i << std::endl;
 
 
-    print_instructions(vm_memory, 0, 2000);
+    //print_instructions(vm_memory, 0, 2000);
     return 0;
 }
