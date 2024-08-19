@@ -4,7 +4,25 @@
 #include <string>
 #include "constants.cpp"
 
+struct cpu_state {
+    uint16_t* args;
+    uint16_t* rip;
+    uint16_t* regs;
+};
+
 using namespace std;
+int interpret_number(uint16_t number, uint16_t* regs)
+{
+    if (number <= 32767)
+    {
+        return number;
+    }
+    else if (number <= 32767+8)
+    {
+        return regs[number-32768];
+    }
+    return -1;
+}
 
 int is_opcode(uint16_t byte)
 {

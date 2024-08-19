@@ -2,25 +2,42 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
-#include "utils.cpp"
 #include "opcodes.cpp"
 
 using namespace std;
 
-int execute_instruction(int *rip, uint16_t* vm_memory, int* regs)
+int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs)
 {
     uint16_t opcode;
     uint16_t args_buf[5];
     int n_args;
     interpret_instruction(vm_memory, *rip, &opcode, args_buf, &n_args);
     *rip += 1+n_args;
+    struct cpu_state state;
+    state.rip = rip;
+    state.regs = regs;
+    state.args = args_buf;
+
+
     if (opcode == 0 || opcode >= N_OPCODES) // HALT
     {
         return 1;
     }
-    if (opcode == 19) // OUT
+    if (opcode == 6)
     {
-        out(args_buf);
+        jmp(state);
+    }
+    if (opcode == 7)
+    {
+        jt(state);
+    }
+    if (opcode == 8)
+    {
+        jf(state);
+    }
+    if (opcode == 19)
+    {
+        out(state);
     }
     return 0;
 }
@@ -32,8 +49,8 @@ int main() {
     load_program(BINARY_PATH, vm_memory);
 
     // Set up register instruction pointer (RIP) and registers
-    int rip = 0;
-    int regs[8] = {0};
+    uint16_t rip = 0;
+    uint16_t regs[8] = {0};
     while (1)
     {
         if (execute_instruction(&rip, vm_memory, regs) != 0)

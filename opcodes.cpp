@@ -1,5 +1,29 @@
 #include <iostream>
-void out(uint16_t* args_buf)
+#include "utils.cpp"
+void jmp(struct cpu_state state)
 {
-    std::cout << (char)args_buf[0];
+    *state.rip = interpret_number(state.args[0], state.regs);
+}
+
+void jt(struct cpu_state state)
+{
+    if (interpret_number(state.args[0], state.regs) != 0)
+    {
+        state.args = &state.args[1];
+        jmp(state);
+    }
+}
+
+void jf(struct cpu_state state)
+{
+    if (interpret_number(state.args[0], state.regs) == 0)
+    {
+        state.args = &state.args[1];
+        jmp(state);
+    }
+}
+
+void out(struct cpu_state state)
+{
+    std::cout << (char)interpret_number(state.args[0], state.regs);
 }
