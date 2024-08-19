@@ -1,5 +1,11 @@
 #include <iostream>
 #include "utils.cpp"
+
+void set(struct cpu_state state)
+{
+    state.regs[state.args[0]-32768] = interpret_number(state.args[1], state.regs);
+}
+
 void jmp(struct cpu_state state)
 {
     *state.rip = interpret_number(state.args[0], state.regs);

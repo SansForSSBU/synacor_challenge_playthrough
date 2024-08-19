@@ -23,6 +23,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs)
     {
         return 1;
     }
+    if (opcode == 1)
+    {
+        set(state);
+    }
     if (opcode == 6)
     {
         jmp(state);
@@ -47,6 +51,9 @@ int main() {
     ifstream::pos_type file_size = get_file_size(BINARY_PATH);
     uint16_t* vm_memory = (uint16_t*) calloc(file_size, 1);
     load_program(BINARY_PATH, vm_memory);
+
+    // Optional debug
+    //print_instructions(vm_memory, 1, 30000);
 
     // Set up register instruction pointer (RIP) and registers
     uint16_t rip = 0;
