@@ -67,8 +67,26 @@ std::string script[] = {
     "take business card",
     "take strange book",
     "reghax",
-    //"trace",
-    //"use teleporter"
+    "use teleporter",
+    "go north",
+    "go north",
+    "go north",
+    "go north",
+    "go north",
+    "go north",
+    "go north",
+    "go east",
+    "take journal",
+    "go west",
+    "go north",
+    "go north",
+    "take orb",
+    "go east",
+    "go east",
+    "go east",
+    "go north",
+    "go north",
+    "go north"
 };
 int script_len = end(script)-begin(script);
 int script_ptr = 0;

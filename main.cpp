@@ -108,9 +108,18 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std:
     }
     return 0;
 }
+void print_stack(std::vector<uint16_t> st)
+{
+    std::cout << "[";
+    for (uint16_t num: st)
+    {
+        std::cout << num << ", ";
+    }
+    std::cout << "]" << std::endl;
+    return;
+}
 
-
-std::vector<uint16_t> breakpoints = {6049};
+std::vector<uint16_t> breakpoints = {};
 int step = 0;
 #include <algorithm>
 int main() {
@@ -133,8 +142,22 @@ int main() {
             print_instructions(vm_memory, rip, 1); 
         }
 
+        // Orb puzzle cheat
+        if (rip == 4575)
+        {
+            regs[0] = 30;
+        }
+
+        // Teleporter bypass
+        if (rip == 5511)
+        {
+            rip = 5513; // Skip verification function
+            regs[0] = 6; // Pretend we passed verification. The sand code is wrong when we do this.
+        }
+            
         if (std::find(breakpoints.begin(), breakpoints.end(), rip) != breakpoints.end() || step == 1)
         {
+            
             if (!step)
             {
                 std::cout << "Hit breakpoint " << rip << std::endl;
@@ -145,7 +168,19 @@ int main() {
                 print_instructions(vm_memory, rip, 1); 
                 std::string input; 
                 std::cin >> input;
-                if (input == "r")
+                if (input == "[0]=6")
+                {
+                    regs[0] = 6;
+                }
+                if (input == "5513")
+                {
+                    rip = 5513;
+                }
+                if (input == "stack")
+                {
+                    print_stack(stack);
+                }
+                if (input == "regs")
                 {
                     print_regs(regs);
                 }
