@@ -2,6 +2,7 @@
 #include "utils.cpp"
 
 std::string script[] = {
+    //Get to twisty passages
     "take tablet", 
     "go doorway", 
     "go north", 
@@ -14,7 +15,46 @@ std::string script[] = {
     "go west",
     "go west",
     "go passage",
-    "go ladder"
+    "go ladder",
+    //Twisty passages: Find can
+    "west",
+    "south",
+    "north",
+    "take can",
+    "use can",
+    "use lantern",
+    "go west",
+    //Darkness 1
+    //"east".
+    //"east"
+    //Darkness 2
+    //"west",
+    //"south",
+    //"east"
+    //Leave twisty passages and go to ruins
+    "go ladder",
+    "go darkness",
+    "go continue",
+    "go west",
+    "go west",
+    "go west",
+    "go west",
+    "go north",
+    //Collect coins
+    "take red coin",
+    "go north",
+    "go east",
+    "take concave coin",
+    "go down",
+    "take corroded coin",
+    "go up",
+    "go west",
+    "go west",
+    "take blue coin",
+    "go up",
+    "take shiny coin",
+    "go down",
+    "go east"
 };
 int script_len = end(script)-begin(script);
 int script_ptr = 0;

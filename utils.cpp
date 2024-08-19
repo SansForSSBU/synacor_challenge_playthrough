@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "constants.cpp"
 
 struct cpu_state {
