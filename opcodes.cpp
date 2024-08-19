@@ -1,9 +1,22 @@
 #include <iostream>
 #include "utils.cpp"
 
+void eq(struct cpu_state state)
+{
+    uint16_t result = (interpret_number(state.args[1], state.regs) == interpret_number(state.args[2], state.regs));
+    write_ptr(state.args[0], result, state);
+}
+
+void add(struct cpu_state state)
+{
+    uint16_t result = interpret_number(state.args[1], state.regs) + interpret_number(state.args[2], state.regs);
+    write_ptr(state.args[0], result, state);
+}
+
 void set(struct cpu_state state)
 {
-    state.regs[state.args[0]-32768] = interpret_number(state.args[1], state.regs);
+    uint16_t result = interpret_number(state.args[1], state.regs);
+    write_ptr(state.args[0], result, state);
 }
 
 void jmp(struct cpu_state state)

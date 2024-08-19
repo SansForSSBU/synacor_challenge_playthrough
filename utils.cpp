@@ -8,9 +8,23 @@ struct cpu_state {
     uint16_t* args;
     uint16_t* rip;
     uint16_t* regs;
+    uint16_t* mem;
 };
 
 using namespace std;
+
+void write_ptr(uint16_t ptr, uint16_t val, struct cpu_state state)
+{
+    if (ptr <= MAX_NUMBER)
+    {
+        state.mem[ptr] = val;
+    }
+    else
+    {
+        state.regs[ptr-MAX_NUMBER-1] = val;
+    }
+}
+
 int interpret_number(uint16_t number, uint16_t* regs)
 {
     if (number <= 32767)

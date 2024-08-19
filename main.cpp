@@ -17,6 +17,7 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs)
     state.rip = rip;
     state.regs = regs;
     state.args = args_buf;
+    state.mem = vm_memory;
 
 
     if (opcode == 0 || opcode >= N_OPCODES) // HALT
@@ -26,6 +27,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs)
     if (opcode == 1)
     {
         set(state);
+    }
+    if (opcode == 4)
+    {
+        eq(state);
     }
     if (opcode == 6)
     {
@@ -38,6 +43,10 @@ int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs)
     if (opcode == 8)
     {
         jf(state);
+    }
+    if (opcode == 9)
+    {
+        add(state);
     }
     if (opcode == 19)
     {
