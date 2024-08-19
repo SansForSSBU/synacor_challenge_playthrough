@@ -3,17 +3,42 @@
 
 std::string ibuf = "";
 
+int trace = 0;
+
 void in(struct cpu_state state)
 {
     if (ibuf.length() == 0)
     {
         std::cin >> ibuf;
+        if (ibuf == "trace")
+        {
+            trace = 1;
+        }
+        if (ibuf == "notrace")
+        {
+            trace = 0;
+        }
+        if (ibuf == "mem")
+        {
+            print_instructions(state.mem, 0, 30000);
+        }
+        if (ibuf == "regs")
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                std::cout << state.regs[i] << ", ";
+            }
+            std::cout << std::endl;
+        }
+        if (ibuf == "rip")
+        {
+            std::cout << *state.rip << std::endl;
+        }
         ibuf.append("\n");
     }
     uint16_t result = ibuf[0];
     write_ptr(state.args[0], result, state);
     ibuf.erase(0,1);
-    std::cout << result << std::endl;
 }
 
 void ret(struct cpu_state state)

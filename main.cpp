@@ -123,7 +123,11 @@ int main() {
     for (int i = 0; i > -1; i++)
     {
         //std::cout << rip << ":";
-        //print_instructions(vm_memory, rip, 1); 
+        if (trace)
+        {
+            print_instructions(vm_memory, rip, 1); 
+        }
+        
         if (execute_instruction(&rip, vm_memory, regs, &stack) != 0)
         {
             break;

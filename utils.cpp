@@ -41,7 +41,7 @@ uint16_t interpret_number(uint16_t number, uint16_t* regs)
 
 int is_opcode(uint16_t byte)
 {
-    return (int)byte <= N_OPCODES;
+    return byte <= N_OPCODES - 1;
 }
 
 string opcode_to_str(uint16_t opcode)
@@ -96,7 +96,7 @@ void print_instructions(uint16_t* vm_memory, int offset, int window_size)
         {
             std::cout << "     ";
         }
-        std::cout << i << ": ";
+        std::cout << offset+i << ": ";
 
         uint16_t byte = vm_memory[offset + i];
         int num_args = 0;
