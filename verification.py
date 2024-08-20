@@ -12,13 +12,13 @@ def f1():
             
             while (n_loops > 0):
                 regs[1] = regs[0]
-                regs[0] = x
-                
-                n_loops -= 1
-                regs[0] -= 1
-                if not (regs[0] > 0):
+                regs[0] = x                
+                if not (regs[0] > 1):
+                    n_loops -= 1
                     regs[0] = regs[1] + 1
                 else:
+                    n_loops -= 1
+                    regs[0] -= 1
                     f1()
                 
         else: # case 2
