@@ -8,6 +8,7 @@
 using namespace std;
 
 #define SKIP_TELEPORTER 1
+#define SKIP_ORB 0
 
 int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std::vector<uint16_t> *stack)
 {
@@ -145,7 +146,7 @@ int main() {
         }
 
         // Orb puzzle cheat
-        if (rip == 4575)
+        if (rip == 4575 && SKIP_ORB)
         {
             regs[0] = 30;
         }

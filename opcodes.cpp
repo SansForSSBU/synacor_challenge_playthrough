@@ -68,7 +68,7 @@ std::string script[] = {
     "take strange book",
     "reghax",
     "use teleporter",
-    /*
+    
     "go north",
     "go north",
     "go north",
@@ -82,22 +82,14 @@ std::string script[] = {
     "go north",
     "go north",
     "take orb",
-    */
-
-    //Incorrect vault solution, leads to incorrect mirror code.
-    /*
-    "go east",
-    "go east",
-    "go east",
-    "go north",
-    "go north",
-    "go north",
+    "north","east","east","north","west","south","east","east","west","north","north","east",
     "go vault",
     "take mirror",
     "use mirror"
-    */
     
 };
+#define REGHAX_NUM 10102
+
 int script_len = end(script)-begin(script);
 int script_ptr = 0;
 
@@ -152,7 +144,7 @@ void in(struct cpu_state state)
         }
         if (ibuf == "reghax")
         {
-            state.regs[7] = 10102;
+            state.regs[7] = REGHAX_NUM;
         }
         if (ibuf == "memdump")
         {

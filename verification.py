@@ -14,14 +14,14 @@ def f1():
                 regs[1] = regs[0]
                 regs[0] = x
                 if not (x > 1):
-                    if (n_loops > 1):
-                        regs[0] = (regs[1] + (n_loops - 1)) % 32768
-                        n_loops -= (n_loops - 1)
+                    if (n_loops > 5 and True):
+                        regs[0] = (regs[1] + (n_loops - 5)) % 32768
+                        n_loops -= (n_loops - 5)
                     else:
                         regs[0] = (regs[1] + 1) % 32768
                         n_loops -= 1
                 else:
-                    if (n_loops > 5):
+                    if (n_loops > 5 and True):
                         regs[0] = regs[0] - (n_loops - 5) % 32768
                         
                         regs[1] = (regs[1] + (n_loops - 5)*(n+1)) % 32768
@@ -73,8 +73,10 @@ if test_cases:
 
 regs = []
 if calc:
-    for n in range(0, 32767):
+    for n in range(0, 32768):
         regs = [4, 1]
         f1()
-        if (regs[0] == 6 or False):
+        if (regs[0] == 6 or True):
             print(n, regs[0])
+            if (regs[0] == 6):
+                break
