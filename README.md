@@ -1,7 +1,7 @@
 # Solved with C++ for VM and Python for puzzle solvers.
 For whatever reason, my solutions to codes 7 and 8 give back the wrong code. I can believe I got 7 wrong, but I have no idea why 8 is wrong.
 
-# Correct hashes
+# Correct md5sum hashes
 - 76ec2408e8fe3f1753c25db51efd8eb3
 - 0e6aa7be1f68d930926d72b3741a145c
 - 7997a3b2941eab92c1c0345d5747b420
