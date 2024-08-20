@@ -12,10 +12,14 @@ def f1():
             
             while (n_loops > 0):
                 regs[1] = regs[0]
-                regs[0] = x                
-                if not (regs[0] > 1):
-                    n_loops -= 1
-                    regs[0] = regs[1] + 1
+                regs[0] = x
+                if not (x > 1):
+                    if (n_loops > 1):
+                        regs[0] = (regs[1] + (n_loops - 1)) % 32768
+                        n_loops -= (n_loops - 1)
+                    else:
+                        regs[0] = (regs[1] + 1) % 32768
+                        n_loops -= 1
                 else:
                     n_loops -= 1
                     regs[0] -= 1
@@ -24,50 +28,45 @@ def f1():
         else: # case 2
             
             while regs[0] > 0 and not regs[1] > 0:
-                regs[0] -= 1
-                regs[1] = n
+                regs[0] = (regs[0] - 1) % 32768
+                regs[1] = n % 32768
             f1()
             return
     else:
-        regs[0] = regs[1] + 1
+        regs[0] = (regs[1] + 1) % 32768
         return # Base case.
+test_cases = True
+calc = False
+if test_cases:
+    print("Test cases: ")
+    n = 1
+    regs = [3, 1]
+    f1()
+    print(regs)
 
-n = 1
-regs = [3, 1]
-f1()
-print(regs)
+    n = 5
+    regs = [2, 1]
+    f1()
+    print(regs)
 
-n = 5
-regs = [2, 1]
-f1()
-print(regs)
+    n = 8
+    regs = [1, 2]
+    f1()
+    print(regs)
 
-n = 8
-regs = [1, 2]
-f1()
-print(regs)
+    n = 4
+    regs = [2, 2]
+    f1()
+    print(regs)
 
-"""
-def f1(a, b):
-    global n
-    if a > 0:
-        #f2(6057)
-        if b > 0:
-            #f3(6070)
-            temp = a
-            a, b = f1(a, b-1)
-            b = a
-            a = temp
-            a -= 1
-            f1(a, b)
-            return a, b
-        else:
-            a -= 1
-            b = n
-            f1()
-            return a, b
-    else:
-        #6052
-        a = b + 1
-        return a, b# Base case.
-"""
+    n = 6
+    regs = [2, 3]
+    f1()
+    print(regs)
+
+regs = []
+if calc:
+    for n in range(0, 32767):
+        regs = [4, 1]
+        f1()
+        print(n, regs[0])
