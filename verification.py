@@ -5,9 +5,8 @@ def f1():
         if regs[1] > 0: # case 1
             n_loops = 0
             x = regs[0]
-            while regs[1] > 0:
-                regs[1] -= 1
-                n_loops += 1
+            n_loops = regs[1]
+            regs[1] = 0
             f1()
             while (n_loops > 0):
                 n_loops -= 1
