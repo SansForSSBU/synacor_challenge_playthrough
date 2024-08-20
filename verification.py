@@ -4,14 +4,23 @@ def f1():
     global regs
     if regs[0] > 0:
         if regs[1] > 0: # case 1
+            n_loops = 0
             stack.append(regs[0])
             regs[1] -= 1
-            f1()
-            regs[1] = regs[0]
-            regs[0] = stack[-1]
-            del stack[-1]
-            regs[0] -= 1
-            f1()
+            if regs[1] > 0:
+                f1()
+                n_loops += 1
+            else:
+                f1()
+                n_loops += 1
+
+            while (n_loops > 0):
+                regs[1] = regs[0]
+                regs[0] = stack[-1]
+                del stack[-1]
+                regs[0] -= 1
+                f1()
+                n_loops -= 1
         else: # case 2
             while regs[0] > 0 and not regs[1] > 0:
                 regs[0] -= 1
