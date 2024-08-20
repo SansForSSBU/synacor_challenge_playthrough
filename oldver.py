@@ -38,17 +38,17 @@ regs = [2, 1]
 f1()
 print(regs)
 
-n = 8
+n = 87
 regs = [1, 2]
 f1()
 print(regs)
 
-n = 4
+n = 42
 regs = [2, 2]
 f1()
 print(regs)
 
-n = 6
+n = 66
 regs = [2, 3]
 f1()
 print(regs)

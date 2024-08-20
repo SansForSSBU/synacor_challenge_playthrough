@@ -21,9 +21,16 @@ def f1():
                         regs[0] = (regs[1] + 1) % 32768
                         n_loops -= 1
                 else:
-                    n_loops -= 1
-                    regs[0] -= 1
-                    f1()
+                    if (n_loops > 5):
+                        regs[0] = regs[0] - (n_loops - 5)
+                        
+                        regs[1] = (regs[1] + (n_loops - 5)*(n+1)) % 32768
+                        n_loops = n_loops - (n_loops - 5)
+                        f1()
+                    else:
+                        regs[0] = regs[0] - 1
+                        n_loops = n_loops - 1
+                        f1()
                 
         else: # case 2
             
@@ -35,8 +42,8 @@ def f1():
     else:
         regs[0] = (regs[1] + 1) % 32768
         return # Base case.
-test_cases = True
-calc = False
+test_cases = False
+calc = True
 if test_cases:
     print("Test cases: ")
     n = 1
@@ -49,17 +56,17 @@ if test_cases:
     f1()
     print(regs)
 
-    n = 8
+    n = 87
     regs = [1, 2]
     f1()
     print(regs)
 
-    n = 4
+    n = 42
     regs = [2, 2]
     f1()
     print(regs)
 
-    n = 6
+    n = 66
     regs = [2, 3]
     f1()
     print(regs)
@@ -69,4 +76,5 @@ if calc:
     for n in range(0, 32767):
         regs = [4, 1]
         f1()
-        print(n, regs[0])
+        if (regs[0] == 6 or False):
+            print(n, regs[0])
