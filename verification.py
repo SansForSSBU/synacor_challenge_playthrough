@@ -33,11 +33,19 @@ def f1():
     
 
 n = 1
-
 regs = [3, 1]
 f1()
 print(regs)
 
+n = 5
+regs = [2, 1]
+f1()
+print(regs)
+
+n = 8
+regs = [1, 2]
+f1()
+print(regs)
 """
 def f1(a, b):
     global n
