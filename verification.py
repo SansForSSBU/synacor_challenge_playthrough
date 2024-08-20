@@ -12,10 +12,10 @@ def f1():
             del stack[-1]
             regs[0] -= 1
             f1()
-            return
         else: # case 2
-            regs[0] -= 1
-            regs[1] = n
+            while regs[0] > 0 and not regs[1] > 0:
+                regs[0] -= 1
+                regs[1] = n
             f1()
             return
     else:
