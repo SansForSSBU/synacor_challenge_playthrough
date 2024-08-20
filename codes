@@ -6,24 +6,3 @@
 6: JyDQhSbkpyns: e09640936b3ef532b7b8e83ce8f125f4 (Synacor HQ)
 7: RVJamGfjDkMY: INCORRECT (Beach)
 8: diquIO8IpoAv: INCORRECT (Vault)
-
-
-
-
-
-
-
-5511: [4, 1, 3]
-
-They set:
-[0] = 4
-[1] = 1
-explicitly.
-Then call to 6049.
-At the end, [0] needs to be 6 to pass verification.
-
-6049:
-If [0] is 0, we're done. In that case, set [0] to [1] + 1.
-So once we reach our final return, [1] must be 5.
-
-regs[1] increases by n+1 per loop
