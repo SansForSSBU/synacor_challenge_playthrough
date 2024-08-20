@@ -1,13 +1,17 @@
 
+
 def case1():
     x = regs[0]
     regs[1] -= 1
     f1()
+    case1_pt2(x)
+
+def case1_pt2(x):
     regs[1] = regs[0]
     regs[0] = x
     regs[0] -= 1
     f1()
-
+    
 def case2():
     regs[0] -= 1
     regs[1] = n
