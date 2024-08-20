@@ -86,8 +86,8 @@ std::string script[] = {
     "go vault",
     "take mirror",
     "use mirror"
-    
 };
+
 #define REGHAX_NUM 10102
 
 int script_len = end(script)-begin(script);
