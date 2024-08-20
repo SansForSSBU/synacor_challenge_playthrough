@@ -7,6 +7,8 @@
 
 using namespace std;
 
+#define SKIP_TELEPORTER 1
+
 int execute_instruction(uint16_t *rip, uint16_t* vm_memory, uint16_t* regs, std::vector<uint16_t> *stack)
 {
     uint16_t opcode;
@@ -119,7 +121,7 @@ void print_stack(std::vector<uint16_t> st)
     return;
 }
 
-std::vector<uint16_t> breakpoints = {};
+std::vector<uint16_t> breakpoints = {};//{5511, 5513};
 int step = 0;
 #include <algorithm>
 int main() {
@@ -149,7 +151,7 @@ int main() {
         }
 
         // Teleporter bypass
-        if (rip == 5511)
+        if (rip == 5511 && SKIP_TELEPORTER)
         {
             rip = 5513; // Skip verification function
             regs[0] = 6; // Pretend we passed verification. The sand code is wrong when we do this.
@@ -168,6 +170,11 @@ int main() {
                 print_instructions(vm_memory, rip, 1); 
                 std::string input; 
                 std::cin >> input;
+                if (input == "easier")
+                {
+                    regs[0] = 2;
+                    regs[1] = 1;
+                }
                 if (input == "[0]=6")
                 {
                     regs[0] = 6;

@@ -86,7 +86,10 @@ std::string script[] = {
     "go east",
     "go north",
     "go north",
-    "go north"
+    "go north",
+    "go vault",
+    "take mirror",
+    "use mirror"
 };
 int script_len = end(script)-begin(script);
 int script_ptr = 0;
@@ -142,7 +145,7 @@ void in(struct cpu_state state)
         }
         if (ibuf == "reghax")
         {
-            state.regs[7] = 15000;
+            state.regs[7] = 1296;
         }
         if (ibuf == "memdump")
         {
