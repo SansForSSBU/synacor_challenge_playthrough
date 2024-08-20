@@ -1,40 +1,27 @@
-
-
-def case1():
-    x = regs[0]
-    regs[1] -= 1
-    f1()
-    case1_pt2(x)
-
-def case1_pt2(x):
-    regs[1] = regs[0]
-    regs[0] = x
-    regs[0] -= 1
-    f1()
-    
-def case2():
-    regs[0] -= 1
-    regs[1] = n
-    f1()
-
-
 def f1():
     global n
     global regs
     
     if regs[0] > 0:
-        #f2(6057)
         if regs[1] > 0: # case 1
-            case1()
+            x = regs[0]
+            regs[1] -= 1
+            f1()
+            regs[1] = regs[0]
+            regs[0] = x
+            regs[0] -= 1
+            f1()
             return
         else: # case 2
-            case2()
+            regs[0] -= 1
+            regs[1] = n
+            f1()
             return
     else:
-        #6052
         regs[0] = regs[1] + 1
         return # Base case.
-    
+
+
 
 n = 1
 regs = [3, 1]
