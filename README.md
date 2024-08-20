@@ -1,3 +1,6 @@
+This is my solution to the Synacor Challenge.
+For whatever reason, my solutions to codes 7 and 8 give back the wrong code. I can believe I got 7 wrong, but I have no idea why 8 is wrong.
+
 # Synacor Challenge
 
 This repository holds my copy of the architecture specification and challenge
