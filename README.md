@@ -1,11 +1,12 @@
 # Solved with C++ for VM and Python for puzzle solvers.
 For whatever reason, my solutions to codes 7 and 8 give back the wrong code. I can believe I got 7 wrong, but I have no idea why 8 is wrong.
 
-# Synacor Challenge
 
-This repository holds my copy of the architecture specification and challenge
-binary from the Synacor Challenge as presented at OSCON 2012.  It is preserved
-for historical and educational purposes.  
+
+
+
+
+
 
 ## Codes
 
