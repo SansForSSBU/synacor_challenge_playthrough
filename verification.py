@@ -8,12 +8,18 @@ def f1():
             n_loops = regs[1]
             regs[1] = 0
             f1()
+
+            
             while (n_loops > 0):
-                n_loops -= 1
                 regs[1] = regs[0]
                 regs[0] = x
+                
+                n_loops -= 1
                 regs[0] -= 1
-                f1()
+                if not (regs[0] > 0):
+                    regs[0] = regs[1] + 1
+                else:
+                    f1()
                 
         else: # case 2
             
