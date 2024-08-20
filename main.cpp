@@ -153,8 +153,7 @@ int main() {
         // Teleporter bypass
         if (rip == 5511 && SKIP_TELEPORTER)
         {
-            rip = 5513; // Skip verification function
-            regs[0] = 6; // Pretend we passed verification. The sand code is wrong when we do this.
+            rip = 5517; // Skip verification function
         }
             
         if (std::find(breakpoints.begin(), breakpoints.end(), rip) != breakpoints.end() || step == 1)

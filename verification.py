@@ -22,13 +22,13 @@ def f1():
                         n_loops -= 1
                 else:
                     if (n_loops > 5):
-                        regs[0] = regs[0] - (n_loops - 5)
+                        regs[0] = regs[0] - (n_loops - 5) % 32768
                         
                         regs[1] = (regs[1] + (n_loops - 5)*(n+1)) % 32768
                         n_loops = n_loops - (n_loops - 5)
                         f1()
                     else:
-                        regs[0] = regs[0] - 1
+                        regs[0] = (regs[0] - 1) % 32768
                         n_loops = n_loops - 1
                         f1()
                 

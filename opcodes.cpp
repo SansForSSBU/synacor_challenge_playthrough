@@ -68,6 +68,7 @@ std::string script[] = {
     "take strange book",
     "reghax",
     "use teleporter",
+    /*
     "go north",
     "go north",
     "go north",
@@ -81,6 +82,10 @@ std::string script[] = {
     "go north",
     "go north",
     "take orb",
+    */
+
+    //Incorrect vault solution, leads to incorrect mirror code.
+    /*
     "go east",
     "go east",
     "go east",
@@ -90,6 +95,8 @@ std::string script[] = {
     "go vault",
     "take mirror",
     "use mirror"
+    */
+    
 };
 int script_len = end(script)-begin(script);
 int script_ptr = 0;
@@ -145,7 +152,7 @@ void in(struct cpu_state state)
         }
         if (ibuf == "reghax")
         {
-            state.regs[7] = 1296;
+            state.regs[7] = 10102;
         }
         if (ibuf == "memdump")
         {

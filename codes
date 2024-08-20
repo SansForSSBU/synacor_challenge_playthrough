@@ -1,0 +1,29 @@
+1: LDOb7UGhTi: 76ec2408e8fe3f1753c25db51efd8eb3 (Arch spec)
+2: ImoFztWQCvxj: 0e6aa7be1f68d930926d72b3741a145c (Welcome message)
+3: BNCyODLfQkIl: 7997a3b2941eab92c1c0345d5747b420 (Self test)
+4: pWDWTEfURAdS: 186f842951c0dcfe8838af1e7222b7d4 (Tablet)
+5: rdMkyZhveeIv: 2bf84e54b95ce97aefd9fc920451fc45 (Twisty passages)
+6: JyDQhSbkpyns: e09640936b3ef532b7b8e83ce8f125f4 (Synacor HQ)
+7: RVJamGfjDkMY: INCORRECT (Beach)
+8: diquIO8IpoAv: INCORRECT (Vault)
+
+
+
+
+
+
+
+5511: [4, 1, 3]
+
+They set:
+[0] = 4
+[1] = 1
+explicitly.
+Then call to 6049.
+At the end, [0] needs to be 6 to pass verification.
+
+6049:
+If [0] is 0, we're done. In that case, set [0] to [1] + 1.
+So once we reach our final return, [1] must be 5.
+
+regs[1] increases by n+1 per loop
