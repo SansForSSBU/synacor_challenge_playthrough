@@ -1,6 +1,6 @@
 # Synacor Challenge Solution
 
-I believe the hash for Code 8 is incorrect. The hash I got for it was 53a9934996a21e2da38161bb54c3dd4f
+I believe the validation hash given for Code 8 is incorrect. The hash I got for it was 53a9934996a21e2da38161bb54c3dd4f
 https://github.com/tmbarker/synacor-challenge seems to have the same incorrect hash as me
 
 I haven't solved Code 7 yet.
