@@ -13,7 +13,7 @@ I haven't solved Code 7 yet.
 # Validation md5sum hashes
 To check codes, use:
 
-echo -n "<code-here>" | md5sum
+echo -n "code-here" | md5sum
 
 - Code 1: 76ec2408e8fe3f1753c25db51efd8eb3
 - Code 2: 0e6aa7be1f68d930926d72b3741a145c
