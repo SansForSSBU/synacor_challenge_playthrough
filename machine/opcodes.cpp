@@ -24,13 +24,6 @@ std::string script[] = {
     "use can",
     "use lantern",
     "go west",
-    //Darkness 1
-    //"east".
-    //"east"
-    //Darkness 2
-    //"west",
-    //"south",
-    //"east"
     //Leave twisty passages and go to ruins
     "go ladder",
     "go darkness",
@@ -107,9 +100,7 @@ std::string get_input()
     }
     else 
     {
-        char input[100];
-        cin.getline(input,sizeof(input));
-        return std::string(input);
+        return "exit";
     }
 }
 void memdump(cpu_state state)
@@ -134,6 +125,10 @@ void in(struct cpu_state state)
     {
         
         ibuf = get_input();
+        if (ibuf == "exit")
+        {
+            exit(0);
+        }
         if (ibuf == "trace")
         {
             trace = 1;
