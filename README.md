@@ -1,6 +1,6 @@
 # Synacor Challenge Solution
 
-Hello! This is my solution for the Synacor Challenge. It's a bit of a mess, but aren't we all :)
+Hello! This is my solution for the Synacor Challenge.
 
 I've solved all codes except code 7.
 
